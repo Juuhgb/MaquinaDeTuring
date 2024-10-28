@@ -1,34 +1,17 @@
-class TuringMachine:
-    def __init__(self, tape, transitions, initial_state, accepting_states):
-        self.tape = list(tape)
-        self.transitions = transitions
-        self.state = initial_state
-        self.head = 0
-        self.accepting_states = accepting_states
+# Máquina de Turing
 
-    def step(self):
-        symbol = self.tape[self.head]
-        action = self.transitions.get((self.state, symbol))
-        
-        if action:
-            new_symbol, move, new_state = action
-            self.tape[self.head] = new_symbol
-            self.head += 1 if move == 'R' else -1
-            self.state = new_state
+Este projeto implementa uma Máquina de Turing simples em Python. A máquina processa uma fita de entrada e faz transições com base nas regras fornecidas.
 
-            if self.head < 0:
-                self.tape.insert(0, '_')
-                self.head = 0
-            elif self.head >= len(self.tape):
-                self.tape.append('_')
-        else:
-            print("Nenhuma transição possível; a máquina parou.")
+## Estrutura do Código
 
-    def run(self):
-        while self.state not in self.accepting_states:
-            self.step()
-            print("Fita:", ''.join(self.tape), "Estado:", self.state)
+- `TuringMachine`: Classe que define a máquina de Turing.
+  - `__init__(self, tape, transitions, initial_state, accepting_states)`: Inicializa a máquina com a fita, transições, estado inicial e estados de aceitação.
+  - `step(self)`: Executa um passo da máquina, atualizando a fita, movendo a cabeça e mudando o estado.
+  - `run(self)`: Executa a máquina até alcançar um estado de aceitação.
 
+## Exemplo de Uso
+
+```python
 tape = "101"
 transitions = {
     ('q0', '1'): ('_', 'R', 'q1'),
